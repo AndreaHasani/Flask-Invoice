@@ -8,6 +8,21 @@ Flask interface to create and manage invoice
 docker
 ```
 
+## Depends On
+
+```
+SQLAlchemy
+mistune
+Flask_SQLAlchemy
+Flask
+alembic
+flask_login
+flask_migrate
+flask_restful
+flask_script
+flask_weasyprint
+```
+
 ## Running
 
 - Build this app into an container running docker build
