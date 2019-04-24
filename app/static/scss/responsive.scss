@@ -1,0 +1,128 @@
+/* ==========================================================================
+Media Queries
+========================================================================== */
+
+@media only screen and (max-width: $break-xs) {
+}
+
+@media only screen and (max-width: $break-sm) {
+}
+
+@media only screen and (max-width: $break-md) {
+    /*Make dropdown links appear inline*/
+
+  #footer {
+    padding: 5%;
+    flex-wrap: wrap;
+    height: unset;
+    .left {
+      order: 2;
+      flex-direction: row;
+      justify-content: space-between;
+    }
+
+    .right {
+      width: 100%;
+      order: 1;
+      ul {
+        width: 100%;
+justify-content: space-evenly;
+        font-size: calc(10px + (20 - 10) * ((100vw - 320px) / (768 - 320)));
+
+	li {
+	margin: 0;
+
+	a {
+	margin: 0;
+    }
+    }
+      }
+      .social-icons {
+        margin: 0 auto;
+        font-size: calc(12px + (20 - 12) * ((100vw - 320px) / (768 - 320)));
+      }
+    }
+    .left {
+      width: 100%;
+      justify-content: space-around;
+
+      div {
+        font-size: calc(8px + (18 - 8) * ((100vw - 320px) / (768 - 320)));
+      }
+    }
+  }
+
+    .mobile-menu {
+
+	#menu {
+	    background-color: $main-color;
+	    margin-bottom: 2em;
+	    width: 100%;
+	}
+
+	#title {
+	    display: none;
+	}
+	ul {
+	    position: static;
+	    overflow: hidden;
+	    max-height: 0;
+	    clear: both;
+	    -webkit-transition: all 0.4s ease-out;
+	    -moz-transition: all 0.4s ease-out;
+	    -ms-transition: all 0.4s ease-out;
+	    -o-transition: all 0.4s ease-out;
+	    transition: all 0.4s ease-out;
+	}
+	li {
+	    margin-bottom: 1px;
+	}
+	ul li, li a {
+	    width: 100%;
+	    min-width: 140px;
+	}
+	.show-menu {
+	    display: block;
+	    border-bottom: solid;
+	    border-bottom-color: $main-color-darker;
+	    border-top: solid;
+	    border-top-color: $main-color-darker;
+	}
+	.lines {
+	    border-bottom: 15px double #f8f8f8;
+	    border-top: 5px solid #f8f8f8;
+	    content: "";
+	    height: 1.4em;
+	    width: 20px;
+	    padding-right: 15px;
+	    float: right;
+	}
+    }
+
+}
+
+@media only screen and (max-width: $break-lg) {
+    #example-table .tabulator-footer {
+	justify-content: center;
+	& > .tabulator-paginator {
+	    order: 1;
+	    flex: 0 0 100;
+    }
+    .actions {
+	order: 2;
+	padding-top: 10px;
+    }
+    }
+    .mobile-menu {
+	ul {
+	    li {
+		a {
+		    min-width: 120px;
+		}
+	    }
+	}
+    }
+}
+
+@media only screen and (max-width: $break-xl) {
+}

@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7" lang=""> <![endif]-->
+<!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8" lang=""> <![endif]-->
+<!--[if IE 8]>         <html class="no-js lt-ie9" lang=""> <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang=""> <!--<![endif]-->
+<html lang="en">
+<head>
+    {% block head %}
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <title></title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="shortcut icon" type="image/png" href="{{ url_for('static', filename='img/favicon.ico') }}"/>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/normalize.min.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/main.css') }}">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <title>Bare Flask Template</title>
+    {% endblock %}
+
+    <script type=text/javascript>
+	$SCRIPT_ROOT = {{ request.script_root|tojson|safe }};
+    </script>
+    <!--[if lt IE 9]>
+	<script src="js/vendor/html5-3.6-respond-1.4.2.min.js"></script>
+    <![endif]-->
+</head>
+<body>
+    {% block content %}{% endblock %}
+    <footer class="footer flex" id="footer">
+        {% block footer %}
+	<div class="left flex-items">
+	    <div class="phone">
+		<a href="tel:355684812282"><img alt="Phone number" src="{{ url_for('static', filename='img/phone-call.svg')}}" /></a>
+		<a href="tel:355684812282">+355 68 4812282</a>
+	    </div>
+	    <div class="email">
+		<a href="mailto:email@andreahasani.com"><img alt="Email" src="{{ url_for('static', filename='img/close-envelope.svg')}}" /></a>
+		<a href="mailto:email@andreahasani.com">email@andreahasani.com</a>
+	    </div>
+	</div>
+	<div class="right flex-items">
+	    {% if current_user.is_authenticated %}
+	    <div class="desc">
+		<ul>
+		    <li><a href="{{ url_for('logout') }}">Logout</a></li>
+		    <li><a href="{{ url_for('dashboard') }}">Dashboard</a></li>
+	    {% if current_user.is_admin %}
+		    <li><a href="{{ url_for('schedule') }}">Schedule</a></li>
+	    {% endif %}
+		</ul>
+	    </div>
+	    {% endif %}
+	    <div class="social-icons flex">
+		<div class="git">
+		    <a href="https://github.com/AndreaHasani"><img alt="github" src="{{ url_for('static', filename='img/github-logo.svg')}}" /></a>
+		</div>
+		<div class="linkedin">
+		    <a href="https://www.linkedin.com/in/andreahasani/" target="_blank"><img alt="linkedin" src="{{ url_for('static', filename='img/linkedin-button.svg')}}" /></a>
+		</div>
+
+		<div class="skype">
+		    <a href="skype:+355684812282?chat"><img alt= "skype" src="{{ url_for('static', filename='img/skype-logo.svg')}}" /></a>
+		</div>
+	    </div>
+	</div>
+        {% endblock %}
+    </footer>
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.3.1/css/bootstrap.min.css">
+<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/moment@2.24.0/moment.min.js"></script>
+<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/tabulator-tables@4.2.5/dist/js/tabulator.min.js"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/tabulator-tables@4.2.5/dist/css/bootstrap/tabulator_bootstrap4.min.css">
+        {% block footer_scripts %}
+        {% endblock %}
+</body>
+</html>

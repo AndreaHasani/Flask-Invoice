@@ -1,0 +1,107 @@
+<!-- The Modal -->
+<div id="editorModal" class="modal">
+  <!-- Modal content -->
+  <div class="modal-content">
+    <span class="close">&times;</span>
+    <form class="container-flex" >
+	<div class="main_phase">
+	    <div class="row mb-2">
+		<h3 class="w-100 center">From:</h3>
+		<div class="col-4">
+		    <input type="text" class="form-control from_name" placeholder="Name"  aria-label="From Name" required \>
+		</div>
+		<div class="col-4">
+		    <input type="text" class="form-control from_address" placeholder="Address"  aria-label="From Address" required \>
+		</div>
+		<div class="col-4">
+		    <input type="text" class="form-control from_city_state" placeholder="City State"  aria-label="From City" required \>
+		</div>
+	    </div>
+	    <div class="row mb-4">
+		<h3 class="w-100 center">To:</h3>
+		<div class="col-4">
+		    <input type="text" class="form-control to_name" placeholder="Name" aria-label="To Name" required \>
+		</div>
+		<div class="col-4">
+		    <input type="text" class="form-control to_address" placeholder="Address" aria-label="To Address" required \>
+		</div>
+		<div class="col-4">
+		    <input type="text" class="form-control to_city_state" placeholder="City State" aria-label="To City" required \>
+		</div>
+	    </div>
+	    <div class="row mb-4 payment">
+		<div class="input-group col-5">
+		    <select class="form-control payment_method">
+			<option value="Paypal">Paypal</option>
+		    </select>
+		    <div class="input-group-prepend">
+			<span class="input-group-text">Type</span>
+		    </div>
+		</div>
+		<div class="col-6">
+		    <input type="text" class="form-control payment_email" placeholder="Email" required \>
+		</div>
+	    </div>
+	    <div class="row mb-4">
+		<div class="input-group col-4">
+		    <input type="text" class="form-control id" readonly>
+		    <div class="input-group-prepend">
+			<span class="input-group-text">ID</span>
+		    </div>
+		</div>
+		<div class="input-group col-4">
+		    <select class="form-control type_select">
+			<option value='Quote'>Quote</option>
+			<option value='Invoice'>Invoice</option>
+		    </select>
+		    <div class="input-group-prepend">
+			<span class="input-group-text">Type</span>
+		    </div>
+		</div>
+		<div class="input-group col-4">
+		    <div class="input-group-append">
+			<span class="input-group-text">Total</span>
+		    </div>
+		    <input type="number" class="form-control total" readonly value='0'>
+		    <div class="input-group-prepend">
+			<span class="input-group-text">$</span>
+		    </div>
+		</div>
+	    </div>
+	    <div class="w-100 btn-submit mt-4">
+		<button type='submit' class="btn btn-primary save">Save</button>
+		<button class="btn btn-primary warranty">Warranty</button>
+		<button class="btn btn-primary items">Items</button>
+	    </div>
+	</div>
+	<div class="warranty-toggle">
+	    <div class="warranty">
+		<textarea class='warranty_description'>
+		</textarea>
+		<a target='_blank' class='info' href='https://github.com/adam-p/markdown-here/wiki/Markdown-Cheatsheet'>Markdown syntax</a>
+	    </div>
+	    <div class="input-group w-100 btn-submit mt-4">
+		<button class="btn btn-primary back mr-2">Back</button>
+		<input type="number" class='warranty_period' name="warranty_days" min='1' max='365' value='182'>
+		<div class="input-group-prepend">
+		    <span class="input-group-text">Days</span>
+		</div>
+	    </div>
+	</div>
+	<div class="items-toggle">
+	    <div class="items">
+	    </div>
+	    <div class="w-100 btn-submit mt-4">
+		<button class="btn btn-primary back">Back</button>
+		<button class="btn btn-primary add">Add</button>
+	    </div>
+	</div>
+	<div class="msg mt-4">
+	</div>
+    </form>
+  </div>
+
+</div>
+
+
+

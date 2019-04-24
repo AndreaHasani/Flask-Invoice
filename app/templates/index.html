@@ -1,0 +1,57 @@
+{% extends "base.html" %}
+{% block head %}
+<meta name="description" content="Invoice System" />
+{{ super() }}
+{% endblock %}
+<!--[if lt IE 8]>
+    <p class="browserupgrade">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
+<![endif]-->
+
+{% block content %}
+<nav class="mobile-menu">
+<label for="show-menu" class="show-menu"><span>Menu</span><div class="lines"></div></label>
+<input type="checkbox" id="show-menu">
+<a href="#" id="title">Flask Base Template</a>
+<ul id="menu">
+    <li><a href="#home">Home</a></li>
+    <li>			<a href="#">About</a>		</li>
+    <li>			<a href="#">Portfolio</a>		</li>
+    <li><a href="#news">News</a></li>
+    <li><a href="#">Contact</a></li>
+</ul>
+</nav>
+
+<div class="main-container">
+    <div class="main wrapper">
+
+	<div class="invoice-edit">
+	    <form class="settings" id="invoice_gen" action="{{url_for('api_invoice') }}">
+		<div class="form-inline">
+		    <label for="itemsInput">Items: </label>
+		    <input id="itemsInput" class="form-control mr-2 ml-2" type="number" name="items" min="1" max="30" value=1>
+		    <select name='type' class="form-control">
+			<option value="Quote" selected>Quote</option>
+			<option value="Invoice">Invoice</option>
+		    </select>
+		    <div class="form-check form-check-inline ml-2">
+			<input class="form-check-input" type="checkbox" value="" id="defaultCheck1">
+			<label class="form-check-label" for="defaultCheck1">
+			    Default checkbox
+			</label>
+		    </div>
+		    <div class="form-check">
+			<input class="form-check-input" type="checkbox" value="" id="defaultCheck2" disabled>
+			<label class="form-check-label" for="defaultCheck2">
+			    Disabled checkbox
+			</label>
+		    </div>
+		    <input type="submit" class="btn btn-primary ml-4" value="Generate">
+		</div>
+	    </form>
+	    <section id="invoice-preview"></div>
+    </div>
+    </div> <!-- #main -->
+</div> <!-- #main-container -->
+
+<script type="application/javascript" src="{{ url_for('static', filename='js/create.js') }}"></script>
+{% endblock %}
