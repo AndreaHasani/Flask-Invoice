@@ -21,7 +21,7 @@ def index():
         html_text = render_template(
             "invoice-template.html", post=post[0], items=items)
         if download:
-            return render_pdf(HTML(string=html_text, base_url=""), download_filename="AndreaHasani-{}-{}".format(post[0].type, post[0].id))
+            return render_pdf(HTML(string=html_text, base_url=""), download_filename="AndreaHasani-{}-{}.pdf".format(post[0].type, post[0].id))
         else:
             return render_template("invoice-template.html", post=post[0], items=items)
     else:
