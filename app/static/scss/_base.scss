@@ -222,13 +222,12 @@ body {
   background-color: rgba(0, 0, 0, 0.4); /* Black w/ opacity */
 
   /* Modal Content/Box */
-  .modal-content {
-    background-color: #fefefe;
-    margin: 15% auto; /* 15% from the top and centered */
-    padding: 20px;
-    border: 1px solid #888;
-    width: 40%;
-    min-width: 600px;
+  .modal-dialog  {
+    // background-color: #fefefe;
+    // margin: 15% auto; /* 15% from the top and centered */
+    // padding: 20px;
+    // border: 1px solid #888;
+    max-width: 800px;
 
     form {
       margin: 5% 2%;
