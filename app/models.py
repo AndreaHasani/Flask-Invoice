@@ -23,6 +23,8 @@ class Invoice(db.Model):
         'warranty_description', db.Text(), nullable=False)
     warranty_period = db.Column(
         'warranty_period', db.String(128), nullable=False)
+    notes_description = db.Column(
+        'notes_description', db.Text(), nullable=True)
     issued_date = db.Column('issued_date', db.Date(), nullable=False)
     type = db.Column('type', db.String(64), nullable=False, default="Quote")
     total = db.Column('total', db.Integer(), nullable=False)

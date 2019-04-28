@@ -229,6 +229,10 @@ body {
     // border: 1px solid #888;
     max-width: 800px;
 
+    .modal-content {
+	    padding: 2%;
+    }
+
     form {
       margin: 5% 2%;
 
@@ -242,7 +246,7 @@ body {
 	  justify-content: space-between;
       }
 
-      .warranty-toggle {
+      .warranty-toggle, .notes-toggle {
         display: none;
 
         textarea {

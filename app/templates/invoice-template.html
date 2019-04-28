@@ -20,7 +20,7 @@ top: 30px;
     font-size: 16px;
 	    }
 
-	    .warranty {
+	    .warranty, .notes {
 		width: 95%;
 		margin: 0 auto;
 		font-size: 16px;
@@ -29,7 +29,7 @@ top: 30px;
 	    }
 
 
-	    .warranty ul {
+	    .warranty ul, .notes ul {
 		list-style-type: decimal;
 	    }
 
@@ -245,6 +245,11 @@ top: 30px;
 		    </td>
 		</tr>
 	    </table>
+	    {% if post.notes_description %}
+	    <div class="notes" style='break-before: always'>
+		{{ post.notes_description|markdownToHtml|safe }}
+	    </div>
+	    {% endif %}
 	    <div class="warranty" style='break-before: always'>
 		{{ post.warranty_description|markdownToHtml|safe }}
 	    </div>

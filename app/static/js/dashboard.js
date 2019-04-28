@@ -24,7 +24,7 @@ function getItems() {
 }
 
 function modalClear() {
-    $("#editorModal").find(".id, .from_name, .from_city_state, .from_address, .payment_email, .to_name, .to_city_state, .to_address, .total, .warranty_description").each(function() {
+    $("#editorModal").find(".id, .from_name, .from_city_state, .from_address, .payment_email, .to_name, .to_city_state, .to_address, .total, .warranty_description, .notes_description").each(function() {
         this.value = "";
         this.style.border = "1px solid #ced4da";
     });
@@ -59,12 +59,12 @@ function ajaxInvoice_GET(id, type, duplicate = false) {
                 $(".modal-content .type_select")
                     .val(data[0].type)
                     .change();
-                $("#editorModal").fadeIn(400);
+            $("#editorModal").modal('show');
 		var items = JSON.parse(data[0].items);
                 if (duplicate == true) {
                     delete data[0].id;
                 }
-                $(".modal-content").find(".id, .from_name, .from_city_state, .from_address, .payment_email, .to_name, .to_city_state, .to_address, .total, .warranty_description, warranty_period").each(function() {
+                $(".modal-content").find(".id, .from_name, .from_city_state, .from_address, .payment_email, .to_name, .to_city_state, .to_address, .total, .warranty_description, .notes_description, warranty_period").each(function() {
                     this.value = data[0][this.className.replace("form-control ", "")];
                 });
                 let itemsDom = "";
@@ -114,7 +114,8 @@ function ajaxInvoice_POST(data) {
 			total: data.total,
 			type: data.type,
 			payment_method: data.payment_method,
-			payment_email: data.payment_email
+			payment_email: data.payment_email,
+			issued_date: result.date
 		    }, true);
 	    }
 	}
@@ -231,7 +232,7 @@ var table = new Tabulator("#example-table", {
     pagination: "local",
     paginationSize: 10,
     tableBuilt: function() {
-        $("#editorModal .warranty_description").val("");
+        $("#editorModal .warranty_description, #editorModal .notes_description").val("");
         let columns = this.getColumnDefinitions();
         let html = "<select class='tabulator-page type_filter'>"
         for (let x = 0; columns.length > x; x++) {
@@ -279,10 +280,32 @@ $("#example-table")
 
 $("#example-table .actions .create_inv").click(function() {
     modalClear();
-    $("#editorModal").fadeIn(400);
+    $("#editorModal").modal();
+    let default_warranty_value = `### Warranty
+
+  - This program is delivered as it is together with a warranty of 6 months covering the following.
+
+  - The first month covers any problem with the program including API problems, usage problem (stopping, errors, etc) and any other problem which caused the program to not function properly.
+
+  - Month 2 through 6 covers only problems which cause is the code quality such as bugs that existed in the code when it was delivered etc.
+
+  - The client can request updates for filter keywords without charge during the warrenty period.
+
+  - This warranty will be void if there are changes to the code not made by the author and it will cause an extra 30% overcharge for fixing such bugs which were caused by a feature added from another program.
+
+  - In case of non-compliance from the author, the client will be reimbursed up to 50% of the cost. This will be calculated from the damage the bug caused for the code.
+    `;
+    $("#editorModal").find(".warranty textarea").val(default_warranty_value);
     let total_rows = table.getRows().length;
     $("#editorModal .modal-content .id").val(total_rows + 1);
 });
+
+
+$('#editorModal').on('hidden.bs.modal', function (e) {
+    modalClear();
+    $("#editorModal").find(" .items-toggle, .warranty-toggle, .notes-toggle").hide();
+    $("#editorModal .main_phase").show();
+})
 
 // Modal : Items Button
 $("#editorModal")
@@ -291,10 +314,10 @@ $("#editorModal")
         function(e) {
             e.preventDefault();
             $("#editorModal .main_phase")
-                .fadeOut(
-                    500,
+                .hide(
+                    0,
                     function() {
-                        $("#editorModal .items-toggle").fadeIn(500);
+                        $("#editorModal .items-toggle").show();
                     });
         });
 
@@ -305,10 +328,26 @@ $("#editorModal")
         function(e) {
             e.preventDefault();
             $("#editorModal .main_phase")
-                .fadeOut(
-                    500,
+                .hide(
+                    0,
                     function() {
-                        $("#editorModal .warranty-toggle").fadeIn(500);
+                        $("#editorModal .warranty-toggle").show();
+                    });
+        });
+
+
+
+// Modal : warranty Button
+$("#editorModal")
+    .on(
+        "click", "button.notes",
+        function(e) {
+            e.preventDefault();
+            $("#editorModal .main_phase")
+                .hide(
+                    0,
+                    function() {
+                        $("#editorModal .notes-toggle").show();
                     });
         });
 
@@ -318,10 +357,10 @@ $("#editorModal")
         "click", "button.back",
         function(e) {
             e.preventDefault();
-            $(this).parent().parent().fadeOut(
-                500,
+            $(this).parent().parent().hide(
+                0,
                 function() {
-                    $("#editorModal .main_phase").fadeIn(500);
+                    $("#editorModal .main_phase").show();
                 });
 
             let price = $(".items .row .col-3 input")
@@ -389,7 +428,7 @@ $("#editorModal .main_phase")
 
             let modalData = {};
             let emptyField = false;
-            $(".modal-content").find(".type_select, .payment_method, .payment_email, .id, .total, .from_name, .from_city_state, .from_address, .to_name, .to_city_state, .to_address, .warranty_description, .warranty_period").each(function() {
+            $(".modal-content").find(".type_select, .payment_method, .payment_email, .id, .total, .from_name, .from_city_state, .from_address, .to_name, .to_city_state, .to_address, .warranty_description, .notes_description, .warranty_period").each(function() {
                 let value = $.trim(this.value);
                 if (value.length == 0) {
                     emptyField = true;
@@ -418,27 +457,24 @@ $("#editorModal .main_phase")
 	    modalData['type'] = modalData['type_select'];
 	    delete modalData['type_select'];
 	    ajaxInvoice_POST(modalData);
-            $("#editorModal").fadeOut(400);
+            $("#editorModal").modal('hide');
         });
 
 
-// Modal Outside Click
-$("html").click(function(event) {
-    if ($(event.target)
-        .closest(
-            "#editorModal .modal-content, button.edit, button.remove, #example-table .actions .create_inv")
-        .length === 0) {
-        $("#editorModal").fadeOut(400, function() {
-            modalClear();
-            $("#editorModal .items-toggle, #editorModal .warranty-toggle").hide();
-            $("#editorModal .main_phase").show();
-        });
-    }
-    if ($(event.target).closest("#editorModal .modal-content .close").length === 1) {
-        $("#editorModal").fadeOut(400, function() {
-            modalClear();
-            $("#editorModal .items-toggle, #editorModal .warranty-toggle").hide();
-            $("#editorModal .main_phase").show();
-        });
-    }
-});
+// // Modal Outside Click without bootstrap
+// $("html").draggable().click(function(event) {
+//     if ($(event.target)
+//         .closest(
+//             "#editorModal .modal-content, button.edit, button.remove, #example-table .actions .create_inv")
+//         .length === 0) {
+//         $("#editorModal").fadeOut(400, function() {
+//             modalClear();
+//             $("#editorModal .items-toggle, #editorModal .warranty-toggle").hide();
+//             $("#editorModal .main_phase").show();
+//         });
+//     }
+//     if ($(event.target).closest("#editorModal .modal-content .close").length === 1) {
+//         $("#editorModal").fadeOut(400, function() {
+//         });
+//     }
+// });

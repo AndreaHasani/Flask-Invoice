@@ -22,6 +22,7 @@ invoice_args = [
     "issued_date",
     "warranty_description",
     "warranty_period",
+    "notes_description",
     "payment_method",
     "payment_email",
     "type",
@@ -104,7 +105,6 @@ class api_invoice(Resource):
         args['user_id']=current_user.id
         view_return={}
         if args['request_type'] == 'add':
-            print(args)
             args['id']=makeID(args['total'] +
                                 args['to_name'] + args['from_name'] + str(time.time()))
             args['issued_date']=datetime.today().strftime("%Y-%m-%d")
@@ -115,6 +115,7 @@ class api_invoice(Resource):
                 'status': 200, 'id': args['id'], 'date': args['issued_date'], 'action': 'add'}
 
         elif args['request_type'] == 'update':
+            print(args)
             del args['request_type']
             db.session.query(Invoice).filter_by(id=args['id']).update(args)
             view_return = {'status': 200, 'id': args['id'], 'action': 'update'}
