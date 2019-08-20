@@ -23,6 +23,3 @@ from app.filters import *
 
 api.add_resource(api_invoices, '/api/invoices')
 api.add_resource(api_invoice, '/api/invoice')
-
-if __name__ == '__main__':
-    application.run(host="0.0.0.0")
