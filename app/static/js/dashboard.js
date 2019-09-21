@@ -428,13 +428,18 @@ $("#editorModal .main_phase")
 
             let modalData = {};
             let emptyField = false;
-            $(".modal-content").find(".type_select, .payment_method, .payment_email, .id, .total, .from_name, .from_city_state, .from_address, .to_name, .to_city_state, .to_address, .warranty_description, .notes_description, .warranty_period").each(function() {
+            $(".modal-content").find(".type_select, .payment_method, .payment_email, .id, .total, .from_name, .from_city_state, .from_address, .to_name, .to_city_state, .to_address, .warranty_period").each(function() {
                 let value = $.trim(this.value);
                 if (value.length == 0) {
                     emptyField = true;
                     this.style.border = "solid 2px red";
                     return
                 }
+                this.style.border = "1px solid #ced4da";
+                modalData[this.className.replace("form-control ", "")] = value;
+            });
+            $(".modal-content").find(".warranty_description, .notes_description").each(function() {
+                let value = $.trim(this.value);
                 this.style.border = "1px solid #ced4da";
                 modalData[this.className.replace("form-control ", "")] = value;
             });

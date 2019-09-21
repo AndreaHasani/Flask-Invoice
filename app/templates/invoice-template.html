@@ -160,7 +160,9 @@ top: 30px;
 				<td>
 				    Invoice #: <a id='id_anchor' href="{{ request.url }}">{{ post.id }}</a><br>
 				    Created: {{ post.issued_date }}<br>
-				    Warranty End: {{ post.warranty_period|daysToDate }}<br>
+                    {% if post.warranty_period != '0' %}
+                        Warranty End: {{ post.warranty_period|daysToDate }}<br>
+                    {% endif %}
 				</td>
 			    </tr>
 			</table>
@@ -246,13 +248,15 @@ top: 30px;
 		</tr>
 	    </table>
 	    {% if post.notes_description %}
-	    <div class="notes" style='break-before: always'>
-		{{ post.notes_description|markdownToHtml|safe }}
-	    </div>
+            <div class="notes" style='break-before: always'>
+            {{ post.notes_description|markdownToHtml|safe }}
+            </div>
 	    {% endif %}
-	    <div class="warranty" style='break-before: always'>
-		{{ post.warranty_description|markdownToHtml|safe }}
-	    </div>
+	    {% if post.warranty_description %}
+            <div class="warranty" style='break-before: always'>
+            {{ post.warranty_description|markdownToHtml|safe }}
+            </div>
+	    {% endif %}
 	</div>
 <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/v/bs4/dt-1.10.18/b-1.5.6/r-2.2.2/datatables.min.css"/>
 <script type="text/javascript" src="https://cdn.datatables.net/v/bs4/dt-1.10.18/b-1.5.6/r-2.2.2/datatables.min.js"></script>
