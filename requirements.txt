@@ -1,7 +1,7 @@
 SQLAlchemy
 mysqlclient
 uwsgi
-mistune==0.8.4
+mistune==2.0.3
 Flask_SQLAlchemy==2.3.2
 Flask==1.0.2
 alembic==1.0.9
